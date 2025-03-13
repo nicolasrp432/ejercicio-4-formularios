@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
             backgroundColor = '#e74c3c'; // Rojo para valores bajos
         } else if (value <= 6) {
             backgroundColor = '#f39c12'; // Naranja para valores medios
+            
         } else {
             backgroundColor = '#2ecc71'; // Verde para valores altos
         }
@@ -158,23 +159,23 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Validar campos obligatorios según la sección
         if (sectionNumber === 1) {
-            // Sección 1: Información Personal
-            valid = validateField('name', 'Por favor, introduce tu nombre.') && valid;
-            valid = validateEmail('email', 'Por favor, introduce un correo electrónico válido.') && valid;
-            valid = validatePhone('phone', 'Por favor, introduce un número de teléfono válido (9 dígitos).') && valid;
+            // La validación ya se realiza en tiempo real, solo verificamos el estado
+            valid = !document.getElementById('nameError').textContent &&
+                   !document.getElementById('emailError').textContent &&
+                   !document.getElementById('phoneError').textContent &&
+                   document.getElementById('name').value.trim() !== '' &&
+                   document.getElementById('email').value.trim() !== '' &&
+                   document.getElementById('phone').value.trim() !== '';
         } else if (sectionNumber === 2) {
-            // Sección 2: Experiencia de Compra
             valid = validateField('product', 'Por favor, introduce el producto comprado.') && valid;
             valid = validateField('purchaseDate', 'Por favor, selecciona la fecha de compra.') && valid;
         } else if (sectionNumber === 3) {
-            // Sección 3: Satisfacción General
             valid = validateField('birthDate', 'Por favor, selecciona tu fecha de nacimiento.') && valid;
             valid = validateField('zodiac', 'Por favor, selecciona tu signo del zodiaco.') && valid;
             valid = validateRadio('recommend', 'recommendError', 'Por favor, indica si recomendarías nuestro producto.') && valid;
             valid = validateRadio('service', 'serviceError', 'Por favor, califica nuestro servicio al cliente.') && valid;
             valid = validateCheckboxGroup('features', 'featuresError', 'Por favor, selecciona al menos una característica.') && valid;
         } else if (sectionNumber === 4) {
-            // Sección 4: Preferencias
             valid = validateTimeRange() && valid;
             valid = validateCheckboxGroup('paymentMethods', 'paymentMethodsError', 'Por favor, selecciona al menos un método de pago.') && valid;
             valid = validateRadio('frequency', 'frequencyError', 'Por favor, indica la frecuencia de compra.') && valid;
@@ -192,9 +193,11 @@ document.addEventListener('DOMContentLoaded', function() {
             errorElement.textContent = errorMessage;
             field.classList.add('error');
             return false;
+        } else {
+            errorElement.textContent = ''; // Limpiar mensaje de error
+            field.classList.remove('error'); // Quitar clase de error
+            return true;
         }
-        
-        return true;
     }
 
     
@@ -208,9 +211,11 @@ document.addEventListener('DOMContentLoaded', function() {
             errorElement.textContent = errorMessage;
             field.classList.add('error');
             return false;
+        } else {
+            errorElement.textContent = ''; // Limpiar mensaje de error
+            field.classList.remove('error'); // Quitar clase de error
+            return true;
         }
-        
-        return true;
     }
     
     // Función para validar teléfono
@@ -223,9 +228,11 @@ document.addEventListener('DOMContentLoaded', function() {
             errorElement.textContent = errorMessage;
             field.classList.add('error');
             return false;
+        } else {
+            errorElement.textContent = ''; // Limpiar mensaje de error
+            field.classList.remove('error'); // Quitar clase de error
+            return true;
         }
-        
-        return true;
     }
     
     // Función para validar radio buttons
@@ -428,4 +435,28 @@ document.addEventListener('DOMContentLoaded', function() {
         styleElement.id = 'themeColorStyle';
         document.head.appendChild(styleElement);
     }
+
+    // Agregar validación en tiempo real para la sección de información personal
+    document.getElementById('name').addEventListener('blur', function() {
+        validateField('name', 'Por favor, introduce tu nombre.');
+    });
+
+    document.getElementById('email').addEventListener('blur', function() {
+        validateEmail('email', 'Por favor, introduce un correo electrónico válido.');
+    });
+
+    document.getElementById('phone').addEventListener('blur', function() {
+        validatePhone('phone', 'Por favor, introduce un número de teléfono válido (9 dígitos).');
+    });
+
+    // Agregar restricción de máximo 9 caracteres numéricos al input de teléfono
+    document.getElementById('phone').addEventListener('input', function(e) {
+        // Remover cualquier carácter que no sea número
+        this.value = this.value.replace(/\D/g, '');
+        
+        // Limitar a 9 caracteres
+        if (this.value.length > 9) {
+            this.value = this.value.slice(0, 9);
+        }
+    });
 });
