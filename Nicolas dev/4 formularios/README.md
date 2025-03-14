@@ -77,4 +77,4 @@ En el desarrollo del trabajo de formularios utilizando HTML y CSS, cada miembro 
 *   **Nicolás** se centró en la **funcionalidad** del formulario, asegurándose de que todos los elementos trabajaran correctamente. Esto incluyó la validación de campos, la integración de eventos para la interacción y la gestión adecuada de los datos al ser enviados.
 *   **Pedro** asumió la tarea de **explicar y guiar** en la comprensión del código, clarificando el propósito de cada fragmento y su contribución al funcionamiento del formulario. También ayudó a resolver dudas técnicas y brindó soporte en los detalles complejos del código, asegurando una comprensión sólida del proyecto por parte de todos.
 
-Este enfoque colaborativo permitió combinar las fortalezas y habilidades de cada miembro, resultando en
+Este enfoque colaborativo permitió combinar las fortalezas y habilidades de cada miembro, lo que resultó en un formulario bien diseñado, funcional y con una base sólida en cuanto al código. A través del trabajo en equipo, logramos combinar estética, funcionalidad y comprensión técnica de manera efectiva.
